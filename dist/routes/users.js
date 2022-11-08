@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+// import { validate } from 'uuid';
+const userController_1 = require("../controller/userController");
+const account_1 = require("../controller/account");
+// import { forgotPassword, resetPassword } from '../controllers/userController';
+const auth_1 = require("../middleware/auth");
+const router = express_1.default.Router();
+router.get('/getsingle/:id', userController_1.singleUser);
+router.post('/register', userController_1.registerUser);
+router.post('/login', userController_1.loginUser);
+router.patch('/edit/:id', auth_1.auth, userController_1.updateUserRecord);
+router.get('/verify/:token', userController_1.verifyUser);
+router.post('/forgotpassword', userController_1.forgotPassword);
+router.post('/change-password/:id', userController_1.changePassword);
+router.patch('/updatewallet/:id', auth_1.auth, account_1.UpdateWallet);
+exports.default = router;
